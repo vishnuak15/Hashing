@@ -3,26 +3,27 @@ from .forms import HashForm
 from selenium import webdriver
 import hashlib
 from .models import *
+from django.core.exceptions import ValidationError
 
-# class FunctionalTestCase(TestCase):# Test class for functional tests
+class FunctionalTestCase(TestCase):# Test class for functional tests
     
-#     def setUp(self):#before all Test are done
-#         self.browser = webdriver.Firefox()
+    def setUp(self):#before all Test are done
+        self.browser = webdriver.Firefox()
     
-#     def test_there_is_homepage(self):
-#         self.browser.get('http://127.0.0.1:8000')
-#         self.assertIn('Enter hash here:', self.browser.page_source)
+    def test_there_is_homepage(self):
+        self.browser.get('http://127.0.0.1:8000')
+        self.assertIn('Enter hash here:', self.browser.page_source)
 
-#     def test_hash_of_hello(self):#all function names should start with "test" for testing functions
-#         self.browser.get('http://127.0.0.1:8000')
-#         text = self.browser.find_element_by_id('id_text')
-#         text.send_keys('hello')
-#         self.browser.find_element_by_name('submit').click()
-#         self.assertIn('2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824',self.browser.page_source)
+    def test_hash_of_hello(self):#all function names should start with "test" for testing functions
+        self.browser.get('http://127.0.0.1:8000')
+        text = self.browser.find_element_by_id('id_text')
+        text.send_keys('hello')
+        self.browser.find_element_by_name('submit').click()
+        self.assertIn('2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824',self.browser.page_source)
 
 
-#     def tearDown(self):#after all Test are done
-#         self.browser.quit()
+    def tearDown(self):#after all Test are done
+        self.browser.quit()
 
 class unitTestCase(TestCase):
 
@@ -55,3 +56,10 @@ class unitTestCase(TestCase):
         hash = self.saveHash()
         response = self.client.get('/hash/2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824')
         self.assertContains(response,'hello')
+    
+    def test_bad_data(self):# Test for Bad data as Input and Raising a ValidationError as the Response 
+        def badHash():
+            hash = Hash()
+            hash.hash = '2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824gggg'
+            hash.full_clean()
+        self.assertRaises(ValidationError, badHash)
