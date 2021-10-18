@@ -1,4 +1,4 @@
 from django import forms
 
 class HashForm(forms.Form):
-    text = forms.CharField(label='Enter hash here:',widget=forms.Textarea)
+    text = forms.CharField(label='Enter hash here:',widget=forms.TextInput(attrs={'class': "form-control"}))
