@@ -4,7 +4,7 @@ from selenium import webdriver
 import hashlib
 from .models import *
 from django.core.exceptions import ValidationError
-
+import time
 class FunctionalTestCase(TestCase):# Test class for functional tests
     
     def setUp(self):#before all Test are done
@@ -21,6 +21,12 @@ class FunctionalTestCase(TestCase):# Test class for functional tests
         self.browser.find_element_by_name('submit').click()
         self.assertIn('2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824',self.browser.page_source)
 
+    def test_hash_ajax(self):#ajax functions should
+        self.browser.get('http://127.0.0.1:8000')
+        text = self.browser.find_element_by_id('id_text')
+        text.send_keys('hello')
+        time.sleep(5)# wait for Ajax 
+        self.assertIn('2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824', self.browser.page_source)
 
     def tearDown(self):#after all Test are done
         self.browser.quit()

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import *
 from .models import *
 import hashlib
+from django.http import JsonResponse
 # Create your views here.
 
 def home(request):
@@ -25,3 +26,7 @@ def home(request):
 def hash(request, hash):
     hash = Hash.objects.get(hash=hash)
     return render(request,'hashing/hash.html',{'hash':hash})
+
+def quickhash(request):
+    text = request.GET['text']
+    return JsonResponse({'hash':hashlib.sha256(text.encode('utf-8')).hexdigest()})
