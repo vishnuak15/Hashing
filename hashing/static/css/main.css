@@ -1,25 +1,54 @@
-$main-color: #00B285;
-body {
-    background: #222;
-    color: #FFF;
+html {
+    height: 100%;
 }
 
-.skewed-bg {
-    background: $main-color;
-    padding: 200px 0;
-    @include transform(skew(0deg, -10deg));
-    margin-top: -200px;
-    .content {
-        @include transform(skew(0deg, 10deg));
-        text-align: center;
-        .title {
-            padding-top: 100px;
-            font-weight: normal;
-        }
-        .text {
-            width: 60%;
-            margin: 25px auto;
-            color: lighten($main-color, 55);
-        }
+body {
+    margin: 0;
+}
+
+.bg {
+    animation: slide 3s ease-in-out infinite alternate;
+    background-image: linear-gradient(-60deg, rgb(74, 77, 73) 50%, rgb(145, 150, 153) 50%);
+    bottom: 0;
+    left: -50%;
+    opacity: .5;
+    position: fixed;
+    right: -50%;
+    top: 0;
+    z-index: -1;
+}
+
+.bg2 {
+    animation-direction: alternate-reverse;
+    animation-duration: 4s;
+}
+
+.bg3 {
+    animation-duration: 2s;
+}
+
+.content {
+    background-color: rgba(238, 237, 237, 0.8);
+    border-radius: .25em;
+    box-shadow: 0 0 .25em rgb(73, 72, 72);
+    box-sizing: border-box;
+    left: 50%;
+    padding: 10vmin;
+    position: fixed;
+    text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+h1 {
+    font-family: monospace;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(-25%);
+    }
+    100% {
+        transform: translateX(25%);
     }
 }

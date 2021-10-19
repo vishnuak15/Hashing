@@ -5,6 +5,9 @@ import hashlib
 from django.http import JsonResponse
 # Create your views here.
 
+def homee(request):
+    return render(request,'hashing/homee.html')
+
 def home(request):
     if request.method == 'POST': # If the form has been submitted...
         filled_form = HashForm(request.POST) # A form bound to the POST data
