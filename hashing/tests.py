@@ -12,7 +12,7 @@ class FunctionalTestCase(TestCase):# Test class for functional tests
     
     def test_there_is_homepage(self):
         self.browser.get('http://127.0.0.1:8000')
-        self.assertIn('Enter hash here:', self.browser.page_source)
+        self.assertIn('Get Your hash:', self.browser.page_source)
 
     def test_hash_of_hello(self):#all function names should start with "test" for testing functions
         self.browser.get('http://127.0.0.1:8000')
